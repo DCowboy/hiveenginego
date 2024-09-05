@@ -1,4 +1,4 @@
-module github.com/cfoxon/hiveenginego
+module github.com/DCowboy/hiveenginego
 
 go 1.17
 
