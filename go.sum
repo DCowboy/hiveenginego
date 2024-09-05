@@ -1,7 +1,7 @@
 github.com/andybalholm/brotli v1.0.4 h1:V7DdXeJtZscaqfNuAdSRuRFzuiKlHSC/Zh3zl9qY3JY=
 github.com/andybalholm/brotli v1.0.4/go.mod h1:fO7iG3H7G2nSZ7m0zPUDn85XEX2GTukHGRSepvi9Eig=
-github.com/cfoxon/jrc v0.0.0-20220609203436-a5cdf18dbf58 h1:M+ySBOmD46/35j9/63md5H10oAdNheiqeI+PYz1H65s=
-github.com/cfoxon/jrc v0.0.0-20220609203436-a5cdf18dbf58/go.mod h1:namujisY108A+IOsocOcE0CE30N+uAflaR4LfU7rIMs=
+github.com/cfoxon/jrc v0.0.0-20220609213157-eecb83ecebf6 h1:vGELyr4CIReAAEYiNDwTsiM/asBg9OQGeLd6djo8dew=
+github.com/cfoxon/jrc v0.0.0-20220609213157-eecb83ecebf6/go.mod h1:namujisY108A+IOsocOcE0CE30N+uAflaR4LfU7rIMs=
 github.com/goccy/go-json v0.9.7 h1:IcB+Aqpx/iMHu5Yooh7jEzJk1JZ7Pjtmys2ukPr7EeM=
 github.com/goccy/go-json v0.9.7/go.mod h1:6MelG93GURQebXPDq3khkgXZkazVtN9CRI+MGFi0w8I=
 github.com/klauspost/compress v1.15.0 h1:xqfchp4whNFxn5A4XFyyYtitiWI8Hy5EW59jEwcyL6U=

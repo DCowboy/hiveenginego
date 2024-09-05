@@ -50,6 +50,18 @@ func (h HiveEngineRpcNode) QueryContract(qParams ContractQueryParams) ([]byte, e
     return qRes, nil
 }
 
+func (h HiveEngineRpcNode) QueryContractUse(qParams ContractQueryParams) ([]byte, error){
+	if h.Endpoints.Contracts == "" {
+        h.Endpoints.Contracts = "/contract"
+    }
+    query := herpcQuery{method: "findOne", params: qParams}
+    qRes, err := h.rpcExec(h.Endpoints.Contracts, query)
+    if err != nil {
+        return nil, err
+    }
+    return qRes, nil
+}
+
 func (h HiveEngineRpcNode) QueryContractBatch(qParams []ContractQueryParams) ([][]byte, error){
     if h.Endpoints.Contracts == "" {
         h.Endpoints.Contracts = "/contract"
@@ -58,6 +70,24 @@ func (h HiveEngineRpcNode) QueryContractBatch(qParams []ContractQueryParams) ([]
     var queries []herpcQuery
     for _, qParam := range qParams{
         query := herpcQuery{method: "find", params: qParam}
+        queries = append(queries, query)
+    }
+    qRes, err := h.rpcExecBatch(h.Endpoints.Contracts, queries)
+    if err != nil{
+        return nil, err
+    }
+
+    return qRes, nil
+}
+
+func (h HiveEngineRpcNode) QueryContractUseBatch(qParams []ContractQueryParams) ([][]byte, error){
+    if h.Endpoints.Contracts == "" {
+        h.Endpoints.Contracts = "/contract"
+    }
+
+    var queries []herpcQuery
+    for _, qParam := range qParams{
+        query := herpcQuery{method: "findOne", params: qParam}
         queries = append(queries, query)
     }
     qRes, err := h.rpcExecBatch(h.Endpoints.Contracts, queries)
