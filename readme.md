@@ -46,4 +46,12 @@ bookType := book.BookType
 book := book.book
 ```
 
+Get metrics for a token:
+```
+book, err :=  herpc.GetMetrics("BEE", 10, 0)
+// Numbers above are limit and offset, string arguments are case insensitive.
+// Returns an array of a struct - Metrics returns as an array for some reason:
+highest := (*response)[0].HighestBid
+```
+
 WARNING: It is not recommended to stream blocks from public APIs. They are provided as a service to users and saturating them with block requests may (rightfully) result in your IP getting banned
