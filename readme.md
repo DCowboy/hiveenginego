@@ -30,10 +30,20 @@ rpcResponsesBytes, err := herpc.GetBlockRangeFast(start, end)
 Get an account's balances for a token:
 ```
 balances, err :=  herpc.GetBalances("BEE", "alice", 10, 0)
-// Numbers above are limit and offset
+// Numbers above are limit and offset, string arguments are case insensitive
 // Returns a struct
 stake := balances.Stake
 balance := balances.Balance
+etc.
+```
+
+Get buy/sell books for a token:
+```
+book, err :=  herpc.GetBook("buy", "BEE", 10, 0)
+// Numbers above are limit and offset, string arguments are case insensitive.
+// Returns a struct: book is still an array/slice
+bookType := book.BookType
+book := book.book
 ```
 
 WARNING: It is not recommended to stream blocks from public APIs. They are provided as a service to users and saturating them with block requests may (rightfully) result in your IP getting banned

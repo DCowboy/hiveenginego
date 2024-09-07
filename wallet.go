@@ -2,8 +2,10 @@ package hiveenginego
 
 import (
 	//~ "fmt"
+	"strings"
 	"encoding/json"
 )
+
 type Balances struct {
 	_id                      int     `json:"_id"`
 	Account                  string  `json:"account"`
@@ -23,7 +25,7 @@ func (h HiveEngineRpcNode) GetBalances (token, account string, limit, offset int
 	params := ContractQueryParams {
 		Contract: "tokens",
 		Table: "balances",
-		Query: map[string]string{"symbol": token, "account": account},
+		Query: map[string]string{"symbol": strings.ToUpper(token), "account": strings.ToLower(account)},
 		Limit: limit,
 		Offset: offset,
 	}
