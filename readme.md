@@ -54,6 +54,15 @@ orders, err :=  herpc.GetAccountOrders("BEE", "Alice", 10, 0)
 buyOrders := orders.Buy
 firstPrice := buyOrders.Book[0].Price
 ```
+Get trade history for a token:
+```
+history, err :=  herpc.GetHistory("BEE", 10, 0)
+// Numbers above are limit and offset, string arguments are case insensitive.
+// Returns a struct of an array of records
+log := history.Log
+firstRecord := log[0]
+firstRecordTimestamp := log[0].Timestamp
+```
 
 Get metrics for a token:
 ```
