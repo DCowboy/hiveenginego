@@ -48,7 +48,7 @@ firstPrice := buyBook[0].Price
 
 Get account's open orders for a token for a token:
 ```
-orders, err :=  herpc.GetAccountOrders("BEE", Alice, 10, 0)
+orders, err :=  herpc.GetAccountOrders("BEE", "Alice", 10, 0)
 // Numbers above are limit and offset, string arguments are case insensitive.
 // Returns a struct of each book struct (still returned as a slice)
 buyOrders := orders.Buy
