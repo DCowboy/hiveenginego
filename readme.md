@@ -42,15 +42,24 @@ Get buy/sell books for a token:
 book, err :=  herpc.GetBook("buy", "BEE", 10, 0)
 // Numbers above are limit and offset, string arguments are case insensitive.
 // Returns a struct: book is still an array/slice
-bookType := book.BookType
-book := book.book
+buyBook := book.Book
+firstPrice := buyBook[0].Price
+```
+
+Get account's open orders for a token for a token:
+```
+orders, err :=  herpc.GetAccountOrders("BEE", Alice, 10, 0)
+// Numbers above are limit and offset, string arguments are case insensitive.
+// Returns a struct of each book struct (still returned as a slice)
+buyOrders := orders.Buy
+firstPrice := buyOrders.Book[0].Price
 ```
 
 Get metrics for a token:
 ```
 book, err :=  herpc.GetMetrics("BEE", 10, 0)
 // Numbers above are limit and offset, string arguments are case insensitive.
-// Returns an array of a struct - Metrics returns as an array for some reason:
+// Returns an array of a struct - Metrics returns as an array because of the query method it uses.
 highest := (*response)[0].HighestBid
 ```
 

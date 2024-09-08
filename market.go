@@ -2,12 +2,18 @@ package hiveenginego
 
 import (
 	//~ "fmt"
+	//~ "errors"
+	"bytes"
 	"strings"
 	"encoding/json"
 )
 
+type PersonalOrders struct {
+	Buy                       OrderBook
+	Sell                      OrderBook
+}
+
 type OrderBook struct {
-	BookType                   string
 	Book                       []Order       `json:""`
 }
 
@@ -51,15 +57,64 @@ func (h HiveEngineRpcNode) GetBook (bookType, token string, limit, offset int) (
 		return nil, err
 	}
 	book := &OrderBook{}
-	book.BookType = string(strings.ToTitle(bookType) + "Book")
-	if uErr := json.Unmarshal(response, &book.Book); uErr != nil {
-		return nil, uErr
+	c := bytes.TrimLeft(response, " \t\r\n")
+	if len(c) > 0 && c[0] == '[' {
+		if uErr := json.Unmarshal(response, &book.Book); uErr != nil {
+			return nil, uErr
+		}
+	} else if len(c) > 0 && c[0] == '{' {
+		order := &Order{}
+		if uErr := json.Unmarshal(response, &order); uErr != nil {
+			return nil, uErr
+		}
+		book.Book = append(book.Book, *order)
+	} else {
+		book.Book = make([]Order, 0)
 	}
 
 	return book, nil
 }
 
+func (h HiveEngineRpcNode) GetAccountOrders (token, account string, limit, offset int) (*PersonalOrders, error) {
+	orders := &PersonalOrders{}
+	actions := []string{"buy", "sell"}
+	for _, action := range actions {
+		params := ContractQueryParams {
+			Contract: "market",
+			Table: string(strings.ToLower(action) + "Book"),
+			Query: map[string]string{"symbol": strings.ToUpper(token), "account": strings.ToLower(account)},
+			Limit: limit,
+			Offset: offset,
+		}
+		response, err := h.QueryContractUse(params)
+		if err != nil {
+			return nil, err
+		}
+		book := &OrderBook{}
+		c := bytes.TrimLeft(response, " \t\r\n")
+		if len(c) > 0 && c[0] == '[' {
+			if uErr := json.Unmarshal(response, &book.Book); uErr != nil {
+				return nil, uErr
+			}
+		} else if len(c) > 0 && c[0] == '{' {
+			order := &Order{}
+			if uErr := json.Unmarshal(response, &order); uErr != nil {
+				return nil, uErr
+			}
+			book.Book = append(book.Book, *order)
+		} else {
+			book.Book = make([]Order, 0)
+		}
+		
 
+		if action == "buy" {
+			orders.Buy = *book
+		} else {
+			orders.Sell = *book
+		}
+	}
+	return orders, nil
+}
 //TODO: add other book functions like personal orders and sort function
 
 //TODO: add trades history
