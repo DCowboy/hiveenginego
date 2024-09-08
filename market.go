@@ -30,6 +30,24 @@ type Order struct {
 	Expiration                 int           `json:"expiration"`
 }
 
+type History struct {
+	Log                        []Record
+}
+
+type Record struct {
+	_id                        int            `json:"_id"`
+	Type                       string         `json:"type"`
+	Buyer                      string         `json:"buyer"`
+	Seller                     string         `json:"seller"`
+	Symbol                     string         `json:"symbol"`
+	Quantity                   float32        `json:",string"`
+	Price                      float32        `json:",string"`
+	Timestamp                  int            `json:"timestamp"`
+	Volume                     float32        `json:",string"`
+	BuyTxId                    string         `json:"buyTxId"`
+	SellTxId                   string         `json:"sellTxId"`
+}
+
 type Metrics struct {
 	_id                        int           `json:"_id"`
 	Symbol                     string        `json:"symbol"`
@@ -115,9 +133,41 @@ func (h HiveEngineRpcNode) GetAccountOrders (token, account string, limit, offse
 	}
 	return orders, nil
 }
-//TODO: add other book functions like personal orders and sort function
 
-//TODO: add trades history
+//TODO: add other book functions like sort function
+
+func (h HiveEngineRpcNode) GetHistory (token string, limit, offset int) (*History, error) {
+	params := ContractQueryParams {
+		Contract: "market",
+		Table: "tradesHistory",
+		Query: map[string]string{"symbol": strings.ToUpper(token)},
+		Limit: limit,
+		Offset: offset,
+	}
+	response, err := h.QueryContract(params)
+	if err != nil {
+		return nil, err
+	}
+	history := &History{}
+	c := bytes.TrimLeft(response, " \t\r\n")
+	if len(c) > 0 && c[0] == '[' {
+		if uErr := json.Unmarshal(response, &history.Log); uErr != nil {
+			return nil, uErr
+		}
+	} else if len(c) > 0 && c[0] == '{' {
+		record := &Record{}
+		if uErr := json.Unmarshal(response, &record); uErr != nil {
+			return nil, uErr
+		}
+		history.Log = append(history.Log, *record)
+	} else {
+		history.Log = make([]Record, 0)
+	}
+
+	return history, nil
+}
+
+//Note: findOne does not work for tradesHistory or metrics tables. Will have to sort tradesHistory at a high limit to get account specific history
 
 func (h HiveEngineRpcNode) GetMetrics (token string, limit, offset int) (*Metrics, error) {
 	params := ContractQueryParams {
