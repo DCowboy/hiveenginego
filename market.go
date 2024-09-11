@@ -104,7 +104,7 @@ func (h HiveEngineRpcNode) GetAccountOrders (token, account string, limit, offse
 			Limit: limit,
 			Offset: offset,
 		}
-		response, err := h.QueryContractUse(params)
+		response, err := h.QueryContractByAcc(params)
 		if err != nil {
 			return nil, err
 		}

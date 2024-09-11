@@ -29,7 +29,7 @@ func (h HiveEngineRpcNode) GetBalances (token, account string, limit, offset int
 		Limit: limit,
 		Offset: offset,
 	}
-	response, err := h.QueryContractUse(params)
+	response, err := h.QueryContractByAcc(params)
 	if err != nil {
 		return nil, err
 	}

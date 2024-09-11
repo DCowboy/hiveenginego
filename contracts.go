@@ -50,7 +50,7 @@ func (h HiveEngineRpcNode) QueryContract(qParams ContractQueryParams) ([]byte, e
     return qRes, nil
 }
 
-func (h HiveEngineRpcNode) QueryContractUse(qParams ContractQueryParams) ([]byte, error){
+func (h HiveEngineRpcNode) QueryContractByAcc(qParams ContractQueryParams) ([]byte, error){
 	if h.Endpoints.Contracts == "" {
         h.Endpoints.Contracts = "/contract"
     }
@@ -80,7 +80,7 @@ func (h HiveEngineRpcNode) QueryContractBatch(qParams []ContractQueryParams) ([]
     return qRes, nil
 }
 
-func (h HiveEngineRpcNode) QueryContractUseBatch(qParams []ContractQueryParams) ([][]byte, error){
+func (h HiveEngineRpcNode) QueryContractByAccBatch(qParams []ContractQueryParams) ([][]byte, error){
     if h.Endpoints.Contracts == "" {
         h.Endpoints.Contracts = "/contract"
     }
