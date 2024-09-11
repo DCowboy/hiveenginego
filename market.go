@@ -23,10 +23,10 @@ type Order struct {
 	Timestamp                  int           `json:"timestamp"`
 	Account                    string        `json:"account"`
 	Symbol                     string        `json:"symbol"`
-	Quantity                   float32       `json:",string"`
-	Price                      float32       `json:",string"`
+	Quantity                   float64       `json:",string"`
+	Price                      float64       `json:",string"`
 	PriceDec                   interface{}   `json:"priceDec"`
-	TokensLocked               float32       `json:",string, omitempty"`
+	TokensLocked               float64       `json:",string, omitempty"`
 	Expiration                 int           `json:"expiration"`
 }
 
@@ -40,10 +40,10 @@ type Record struct {
 	Buyer                      string         `json:"buyer"`
 	Seller                     string         `json:"seller"`
 	Symbol                     string         `json:"symbol"`
-	Quantity                   float32        `json:",string"`
-	Price                      float32        `json:",string"`
+	Quantity                   float64        `json:",string"`
+	Price                      float64        `json:",string"`
 	Timestamp                  int            `json:"timestamp"`
-	Volume                     float32        `json:",string"`
+	Volume                     float64        `json:",string"`
 	BuyTxId                    string         `json:"buyTxId"`
 	SellTxId                   string         `json:"sellTxId"`
 }
@@ -51,14 +51,14 @@ type Record struct {
 type Metrics struct {
 	_id                        int           `json:"_id"`
 	Symbol                     string        `json:"symbol"`
-	Volume                     float32       `json:",string"`
+	Volume                     float64       `json:",string"`
 	VolumeExpiration           int           `json:"volumeExpiration"`
-	LastPrice                  float32       `json:",string"`
-	LowestAsk                  float32       `json:",string"`
-	HighestBid                 float32       `json:",string"`
-	LastDayPrice               float32       `json:",string"`
+	LastPrice                  float64       `json:",string"`
+	LowestAsk                  float64       `json:",string"`
+	HighestBid                 float64       `json:",string"`
+	LastDayPrice               float64       `json:",string"`
 	LastDayPriceExpiration     int           `json:"lastDayPruceExpiration"`
-	PriceChangeHive            float32       `json:",string"`
+	PriceChangeHive            float64       `json:",string"`
 	PriceChangePercent         string        `json:"priceChangePercent"`
 }
 
