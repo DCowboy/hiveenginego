@@ -1,6 +1,6 @@
 module github.com/DCowboy/hiveenginego
 
-go 1.22.2
+go 1.23.0
 
 require github.com/cfoxon/jrc v0.0.0-20221213194602-c4e904139b50
 
