@@ -1,6 +1,6 @@
 # HiveEngineGo - A client for the Hive Engine side chain on the Hive blockchain
 
-This fork will be adding more functionality as it seems like the upstream repo isn't getting the love it should. New functions will be added to the bottom, but above the warning.
+The fork DCowboy will be adding more functionality as it seems like the upstream repo isn't getting the love it should. New functions will be added to the bottom, but above the warning.
 
 At this time, there are only a few functions from the client. More will be added.
 
@@ -27,6 +27,7 @@ Get block range as the raw response from the rpc (in bytes):
 rpcResponsesBytes, err := herpc.GetBlockRangeFast(start, end)
 ```
 
+### Added by DCowboy
 Get an account's balances for a token:
 ```
 balances, err :=  herpc.GetBalances("BEE", "alice", 10, 0)
